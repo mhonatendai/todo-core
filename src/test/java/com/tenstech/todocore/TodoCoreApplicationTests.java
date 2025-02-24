@@ -1,4 +1,4 @@
-package com.tenstech.todo_core;
+package com.tenstech.todocore;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

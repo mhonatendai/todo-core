@@ -1,4 +1,4 @@
-package com.tenstech.todo_core;
+package com.tenstech.todocore;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
