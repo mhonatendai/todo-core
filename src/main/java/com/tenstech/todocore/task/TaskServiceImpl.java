@@ -2,10 +2,12 @@ package com.tenstech.todocore.task;
 
 import com.tenstech.todocore.model.Task;
 import com.tenstech.todocore.typemapper.TypeMapper;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class TaskServiceImpl implements TaskService{
 
     private final TaskRepository taskRepository;
