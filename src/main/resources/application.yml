@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: todo-core
+  profiles:
+    active: dev
+server:
+  port: 8095
+  servlet:
+    context-path: /todo
+logging:
+  level:
+    org.springframework.security: TRACE
+
