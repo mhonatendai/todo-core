@@ -24,4 +24,13 @@ public class TaskDTO{
     private LocalDateTime closedDate;
 
     private String closingRemark;
+
+    protected LocalDateTime created;
+
+    protected LocalDateTime lastModified;
+
+    protected String createdBy;
+
+    protected String modifiedBy;
+
 }
