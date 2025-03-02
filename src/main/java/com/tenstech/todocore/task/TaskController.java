@@ -25,13 +25,13 @@ public class TaskController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    @GetMapping
+    @GetMapping("/list")
     public ResponseEntity<List<TaskDTO>> getAllTasks() {
         List<TaskDTO> taskDTOs = taskService.getAll();
         return ResponseEntity.ok(taskDTOs);
     }
 
-    @PostMapping
+    @PostMapping("/create")
     public ResponseEntity<TaskDTO> createTask(@RequestBody TaskDTO taskDTO) {
         Optional<TaskDTO> createdTaskDTO = taskService.createTask(taskDTO);
         return createdTaskDTO.map(dto -> ResponseEntity.status(HttpStatus.CREATED).body(dto))

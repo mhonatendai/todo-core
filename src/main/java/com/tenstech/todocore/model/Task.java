@@ -8,6 +8,8 @@ import jakarta.persistence.Enumerated;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+
 @Getter
 @Setter
 @Entity
@@ -21,4 +23,13 @@ public class Task extends AuditedEntity{
 
     @Enumerated(EnumType.STRING)
     private TaskStatus taskStatus;
+
+    @Column
+    private LocalDateTime dueDate;
+
+    @Column
+    private LocalDateTime closedDate;
+
+    @Column
+    private String closingRemark;
 }
