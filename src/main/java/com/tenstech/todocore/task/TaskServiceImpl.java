@@ -33,7 +33,7 @@ public class TaskServiceImpl implements TaskService{
     @Override
     public Optional<TaskDTO> createTask(TaskDTO taskDTO) {
         Task newTask = typeMapper.toTask(taskDTO);
-        newTask.setTaskStatus(TaskStatus.PENDING);
+        newTask.setTaskStatus(TaskStatus.NEW);
         return Optional.of(typeMapper.toTaskDTO(taskRepository.save(newTask)));
     }
 
