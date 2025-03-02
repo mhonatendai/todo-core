@@ -1,5 +1,6 @@
 package com.tenstech.todocore.task;
 
+import com.tenstech.todocore.common.TaskStatus;
 import com.tenstech.todocore.model.Task;
 import com.tenstech.todocore.typemapper.TypeMapper;
 import org.springframework.stereotype.Service;
@@ -31,7 +32,9 @@ public class TaskServiceImpl implements TaskService{
 
     @Override
     public Optional<TaskDTO> createTask(TaskDTO taskDTO) {
-        return Optional.of(typeMapper.toTaskDTO(taskRepository.save(typeMapper.toTask(taskDTO))));
+        Task newTask = typeMapper.toTask(taskDTO);
+        newTask.setTaskStatus(TaskStatus.PENDING);
+        return Optional.of(typeMapper.toTaskDTO(taskRepository.save(newTask)));
     }
 
     @Override

@@ -33,4 +33,20 @@ public class TaskDTO{
 
     protected String modifiedBy;
 
+    @Override
+    public String toString() {
+        return "TaskDTO{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", taskStatus=" + taskStatus +
+                ", dueDate=" + dueDate +
+                ", closedDate=" + closedDate +
+                ", closingRemark='" + closingRemark + '\'' +
+                ", created=" + created +
+                ", lastModified=" + lastModified +
+                ", createdBy='" + createdBy + '\'' +
+                ", modifiedBy='" + modifiedBy + '\'' +
+                '}';
+    }
 }
