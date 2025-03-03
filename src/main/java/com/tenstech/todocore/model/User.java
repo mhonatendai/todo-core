@@ -26,4 +26,14 @@ public class User extends AuditedEntity{
     @JsonIgnore
     private String password;
 
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "userId='" + getId() + '\'' +
+                ", username='" + username + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                '}';
+    }
 }

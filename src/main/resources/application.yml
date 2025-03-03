@@ -3,12 +3,18 @@ spring:
     name: todo-core
   profiles:
     active: dev
+
 server:
   port: 8095
   servlet:
     context-path: /todo
   error:
     include-message: always
+
+rsa:
+  private-key: classpath:certs/private-key.pem
+  public-key: classpath:certs/public-key.pem
+
 logging:
   level:
     org.springframework.security: TRACE
