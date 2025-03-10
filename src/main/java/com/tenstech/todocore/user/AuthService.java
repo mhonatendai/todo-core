@@ -1,14 +1,9 @@
 package com.tenstech.todocore.user;
 
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.jwt.JwtClaimsSet;
 import org.springframework.security.oauth2.jwt.JwtEncoder;
@@ -23,12 +18,11 @@ import java.util.stream.Collectors;
 @Slf4j
 public class AuthService {
 
-    @Autowired
-    private JwtEncoder jwtEncoder;
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-    @Autowired
-    private UserRepository userRepository;
+    private final JwtEncoder jwtEncoder;
+
+    public AuthService(JwtEncoder jwtEncoder) {
+        this.jwtEncoder = jwtEncoder;
+    }
 
 
     public String generateToken(Authentication authentication) {
