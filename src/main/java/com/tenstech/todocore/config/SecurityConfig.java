@@ -42,10 +42,15 @@ public class SecurityConfig {
 
 
     private static final Logger log = LoggerFactory.getLogger(SecurityConfig.class);
-    @Autowired
-    private RsaKeyConfigProperties rsaKeyConfigProperties;
-    @Autowired
-    private JpaUserDetailsService userDetailsService;
+
+    private final RsaKeyConfigProperties rsaKeyConfigProperties;
+
+    private final JpaUserDetailsService userDetailsService;
+
+    public SecurityConfig(RsaKeyConfigProperties rsaKeyConfigProperties, JpaUserDetailsService userDetailsService) {
+        this.rsaKeyConfigProperties = rsaKeyConfigProperties;
+        this.userDetailsService = userDetailsService;
+    }
 
 
     @Bean
