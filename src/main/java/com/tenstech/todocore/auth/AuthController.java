@@ -1,6 +1,7 @@
 package com.tenstech.todocore.auth;
 
 import com.tenstech.todocore.user.AuthService;
+import com.tenstech.todocore.user.JpaUserDetailsService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -21,25 +22,36 @@ import org.springframework.web.bind.annotation.RestController;
 public class AuthController {
 
 
-    @Autowired
-    private AuthService authService;
-    @Autowired
-    private AuthenticationManager authenticationManager;
+    private final AuthService authService;
+
+    private final AuthenticationManager authenticationManager;
+
+    private final JpaUserDetailsService jpaUserDetailsService;
+
+    public AuthController(AuthService authService, AuthenticationManager authenticationManager, JpaUserDetailsService jpaUserDetailsService) {
+        this.authService = authService;
+        this.authenticationManager = authenticationManager;
+        this.jpaUserDetailsService = jpaUserDetailsService;
+    }
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody AuthDTO.UserRequest userLogin) throws IllegalAccessException {
+    public ResponseEntity<?> login(@RequestBody AuthDTO.UserRequest userRequest) throws IllegalAccessException {
         Authentication authentication =
                 authenticationManager
                         .authenticate(new UsernamePasswordAuthenticationToken(
-                                userLogin.getUsername(),
-                                userLogin.getPassword()));
+                                userRequest.getUsername(),
+                                userRequest.getPassword()));
         SecurityContextHolder.getContext().setAuthentication(authentication);
-
-        log.info("Token requested for user :{}", authentication.getAuthorities());
         String token = authService.generateToken(authentication);
 
         AuthDTO.Response response = new AuthDTO.Response("User logged in successfully", token);
 
         return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/create")
+    public ResponseEntity<?> createUser(@RequestBody AuthDTO.UserRequest userRequest) throws IllegalAccessException {
+
+        return ResponseEntity.ok(jpaUserDetailsService.createUser(userRequest));
     }
 }
