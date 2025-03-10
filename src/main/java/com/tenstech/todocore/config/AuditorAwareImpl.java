@@ -1,19 +1,32 @@
 package com.tenstech.todocore.config;
 
+import com.tenstech.todocore.model.User;
+import com.tenstech.todocore.user.JpaUserDetailsService;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.data.domain.AuditorAware;
-    import org.springframework.security.core.context.SecurityContextHolder;
-    import org.springframework.security.core.userdetails.UserDetails;
-    import java.util.Optional;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 
-    public class AuditorAwareImpl implements AuditorAware<String> {
+import java.util.Objects;
+import java.util.Optional;
 
-        @Override
-        public Optional<String> getCurrentAuditor() {
-            try {
-                UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-                return Optional.of(userDetails.getUsername());
-            } catch (Exception e) {
-                return Optional.of("System");
-            }
+@Slf4j
+@Configuration
+public class AuditorAwareImpl implements AuditorAware<String> {
+
+    @Autowired
+    private JpaUserDetailsService userService;
+
+    @Override
+    public Optional<String> getCurrentAuditor() {
+        try {
+            String currentUsername = SecurityContextHolder.getContext().getAuthentication().getName();
+            UserDetails optionalUser = userService.loadUserByUsername(currentUsername);
+            return Objects.nonNull(optionalUser) ? Optional.of(currentUsername) : Optional.of("system");
+        } catch (Exception e) {
+            return Optional.of("System");
         }
     }
+}
