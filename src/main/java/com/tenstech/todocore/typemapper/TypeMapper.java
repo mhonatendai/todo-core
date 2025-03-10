@@ -1,7 +1,9 @@
 package com.tenstech.todocore.typemapper;
 
 
+import com.tenstech.todocore.auth.AuthDTO;
 import com.tenstech.todocore.model.Task;
+import com.tenstech.todocore.model.User;
 import com.tenstech.todocore.task.TaskDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
@@ -19,5 +21,7 @@ public interface TypeMapper {
     List<TaskDTO> getTaskDTOs(List<Task> tasks);
 
     void updateTaskFromDTO(TaskDTO taskDTO, @MappingTarget Task task); // No need to ignore updatedAt
+
+    User toUser(AuthDTO.UserRequest userRequest);
 
 }

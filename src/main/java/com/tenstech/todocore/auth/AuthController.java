@@ -1,10 +1,7 @@
 package com.tenstech.todocore.auth;
 
 import com.tenstech.todocore.user.AuthService;
-import com.tenstech.todocore.user.AuthUser;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -30,16 +27,13 @@ public class AuthController {
     private AuthenticationManager authenticationManager;
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody AuthDTO.LoginRequest userLogin) throws IllegalAccessException {
+    public ResponseEntity<?> login(@RequestBody AuthDTO.UserRequest userLogin) throws IllegalAccessException {
         Authentication authentication =
                 authenticationManager
                         .authenticate(new UsernamePasswordAuthenticationToken(
                                 userLogin.getUsername(),
                                 userLogin.getPassword()));
         SecurityContextHolder.getContext().setAuthentication(authentication);
-
-        AuthUser userDetails = (AuthUser) authentication.getPrincipal();
-
 
         log.info("Token requested for user :{}", authentication.getAuthorities());
         String token = authService.generateToken(authentication);

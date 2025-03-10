@@ -7,17 +7,10 @@ public class AuthDTO {
 
     @Setter
     @Getter
-    public static class LoginRequest {
+    public static class UserRequest {
         private String username;
         private String password;
-
-        public LoginRequest() {
-        }
-
-        public LoginRequest(String username, String password) {
-            this.username = username;
-            this.password = password;
-        }
+        private String email;
     }
 
     @Setter
